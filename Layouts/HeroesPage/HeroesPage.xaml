@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:MarvelGallery.Layouts.HeroesPage.ViewModels"
+             x:Class="MarvelGallery.Layouts.HeroesPage.HeroesPage">
+
+    <ContentPage.BindingContext>
+        <viewmodels:HeroesPageViewModel/>
+    </ContentPage.BindingContext>
+
+    <StackLayout BackgroundColor="Red">
+        <Entry Placeholder="Search character..." x:Name="searchEntry" TextColor="Black"/>
+        <Button Text="Search" Clicked="OnSearchButtonClicked"/>
+
+        <CollectionView ItemsSource="{Binding Characters}" VerticalOptions="FillAndExpand" >
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".5*"/>
+                            <ColumnDefinition Width=".5*"/>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+
+                        </Grid.RowDefinitions>
+
+                        <Image Source="{Binding thumbnail.fullPath}" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
+                       Aspect="AspectFill"
+                               HorizontalOptions="Fill"
+                               VerticalOptions="Fill"></Image>
+
+                        <VerticalStackLayout Grid.Column="1" Grid.Row="0" Padding="5" VerticalOptions="Center" >
+                            <Label Text="{Binding name}"></Label>
+                        </VerticalStackLayout>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>
