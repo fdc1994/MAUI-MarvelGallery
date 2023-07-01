@@ -9,8 +9,8 @@
     </ContentPage.BindingContext>
 
     <StackLayout BackgroundColor="Red">
-        <Entry Placeholder="Search character..." x:Name="searchEntry" TextColor="Black"/>
-        <Button Text="Search" Clicked="OnSearchButtonClicked"/>
+        <Entry Placeholder="Search character..." x:Name="searchEntry" TextColor="Black" TextChanged="OnSearchButtonClicked"/>
+    
 
         <CollectionView ItemsSource="{Binding Characters}" VerticalOptions="FillAndExpand" >
             <CollectionView.ItemTemplate>

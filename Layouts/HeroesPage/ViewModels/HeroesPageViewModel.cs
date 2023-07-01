@@ -28,32 +28,25 @@ namespace MarvelGallery.Layouts.HeroesPage.ViewModels
             set
             {
                 _characters = value;
-                if(value != null)
-                {
                     OnPropertyChanged();
-                }
             }
         }
 
         public async Task LoadCharacters(string searchTerm)
         {
-            Characters.Clear();
-            if (searchTerm != null)
-            {
                 var result = await _marvelApiService.GetCharacters(searchTerm);
-                
-                if (result.data.results.Count > 0)
+                Characters.Clear();
+                if (result.code == 200 && result.data.results.Count > 0)
                 {
                     foreach (var character in result.data.results)
                     {
                         String fullPath = character.thumbnail.path + "." + character.thumbnail.extension;
+                        //Needed because Android does not support unsecure protocol image loading
                         string finalFullPath = fullPath.Replace("http", "https");
                         character.thumbnail.fullPath = finalFullPath;
                         Characters.Add(character);
                     }
                 }
-            }
-           
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

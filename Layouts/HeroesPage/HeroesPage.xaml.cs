@@ -15,8 +15,6 @@ public partial class HeroesPage : ContentPage
     private async void OnSearchButtonClicked(object sender, EventArgs e)
     {
         string searchTerm = searchEntry.Text;
-        if(searchTerm != null ) {
-            await _viewModel.LoadCharacters("");
-        }
+        await _viewModel.LoadCharacters(searchTerm);
     }
 }

@@ -25,7 +25,14 @@ namespace MarvelGallery.Services
         {
             String category = "characters?";
 
-            var response = await _httpClient.GetAsync($"{category}{appendAuthentication() + Constants.and}nameStartsWith={nameStartsWith}");
+            var query = $"{category}{appendAuthentication()}";
+
+            if (nameStartsWith != String.Empty)
+            {
+                query = query+ Constants.and + "nameStartsWith=" + nameStartsWith ;
+            }
+
+            var response = await _httpClient.GetAsync(query);
             string json = await response.Content.ReadAsStringAsync();
             MarvelApiResponse marvelApiResponse = JsonConvert.DeserializeObject<MarvelApiResponse>(json);
 
