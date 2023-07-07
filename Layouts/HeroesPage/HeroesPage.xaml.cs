@@ -14,7 +14,14 @@ public partial class HeroesPage : ContentPage
 
     private async void OnSearchButtonClicked(object sender, EventArgs e)
     {
+        charactersCollectionView.IsEnabled = false;
+        activityIndicator.IsRunning = true;
         string searchTerm = searchEntry.Text;
-        await _viewModel.LoadCharacters(searchTerm);
+        await _viewModel.LoadCharacters(searchTerm).ContinueWith(
+            result =>
+            {
+                activityIndicator.IsRunning = false;
+            }, TaskScheduler.FromCurrentSynchronizationContext()
+            );
     }
 }

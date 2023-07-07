@@ -3,40 +3,58 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:MarvelGallery.Layouts.HeroesPage.ViewModels"
              x:Class="MarvelGallery.Layouts.HeroesPage.HeroesPage">
-
+   
     <ContentPage.BindingContext>
         <viewmodels:HeroesPageViewModel/>
     </ContentPage.BindingContext>
-
-    <StackLayout BackgroundColor="Red">
-        <Entry Placeholder="Search character..." x:Name="searchEntry" TextColor="Black" TextChanged="OnSearchButtonClicked"/>
     
+    <AbsoluteLayout VerticalOptions="FillAndExpand"  
+                HorizontalOptions="FillAndExpand">
+        <ActivityIndicator 
+            x:Name="activityIndicator"
+            ZIndex="2"
+               AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0,0,1,1" HeightRequest="100" WidthRequest="100" />
+        <StackLayout Spacing="10"
+               Padding="1"
+               AbsoluteLayout.LayoutFlags="All"  
+               AbsoluteLayout.LayoutBounds="0,0,1,1">
+            <Entry Placeholder="Search character..." x:Name="searchEntry" TextChanged="OnSearchButtonClicked"/>
 
-        <CollectionView ItemsSource="{Binding Characters}" VerticalOptions="FillAndExpand" >
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width=".5*"/>
-                            <ColumnDefinition Width=".5*"/>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <Grid.RowDefinitions>
-
-                        </Grid.RowDefinitions>
-
-                        <Image Source="{Binding thumbnail.fullPath}" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
-                       Aspect="AspectFill"
+            <CollectionView x:Name="charactersCollectionView" ItemsSource="{Binding Characters}" VerticalOptions="FillAndExpand" >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView Margin="5">
+                            <SwipeView.LeftItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Favorite"
+                       IconImageSource="favorite.png"
+                       BackgroundColor="LightGreen"/>
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="0.4*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding thumbnail.fullPath}" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
+                                    Aspect="AspectFill"
                                HorizontalOptions="Fill"
-                               VerticalOptions="Fill"></Image>
+                               VerticalOptions="Fill"/>
 
-                        <VerticalStackLayout Grid.Column="1" Grid.Row="0" Padding="5" VerticalOptions="Center" >
-                            <Label Text="{Binding name}"></Label>
-                        </VerticalStackLayout>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </StackLayout>
+                                <VerticalStackLayout Grid.Column="1" Grid.Row="0" Padding="5" VerticalOptions="Center" >
+                                    <Label Text="{Binding name}"></Label>
+                                    <Label Text="{Binding name}"></Label>
+                                    <Label Text="{Binding name}"></Label>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </SwipeView>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </AbsoluteLayout>
+
+
 </ContentPage>
