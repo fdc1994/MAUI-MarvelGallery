@@ -8,7 +8,7 @@
     Shell.FlyoutBehavior="Flyout">
 
     <ShellContent
-        Title="Marvel Heroes Gallery"
+        Title="Heroes"
         ContentTemplate="{DataTemplate local:Layouts.HeroesPage.HeroesPage}"
         Route="MainPage"
           Icon="superhero.png"/>

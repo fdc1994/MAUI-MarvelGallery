@@ -10,13 +10,32 @@ public partial class HeroesPage : ContentPage
 	{
 		InitializeComponent();
         _viewModel = (HeroesPageViewModel)BindingContext;
+        setupInitialView();
     }
 
+    private async void setupInitialView()
+    {
+        await startSearch("");
+    }
+
+
+
     private async void OnSearchButtonClicked(object sender, EventArgs e)
+    {
+        await startSearch(null);
+    }
+
+    private async Task startSearch(String customSearch)
     {
         charactersCollectionView.IsEnabled = false;
         activityIndicator.IsRunning = true;
         string searchTerm = searchEntry.Text;
+        if (customSearch != null)
+        {
+            //Override search despite what's on the search bar
+           searchTerm = customSearch;
+        }
+        
         await _viewModel.LoadCharacters(searchTerm).ContinueWith(
             result =>
             {
